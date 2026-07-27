@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "bullpen",
+  "description": "The senior dev, unbundled. Ten opinionated skills, one house voice.",
+  "owner": {
+    "name": "Mohammed Faizan Mohiuddin",
+    "url": "https://github.com/faizanmohiuddin482"
+  },
+  "plugins": [
+    {
+      "name": "bullpen",
+      "description": "Ten senior-dev instincts as skills: push back, verify, attack, ask, stop digging, and finish. Each with lite/full/ultra intensity.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}
