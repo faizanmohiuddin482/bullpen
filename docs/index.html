@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bullpen — the senior dev, unbundled</title>
+<meta name="description" content="Ten opinionated skills that make an AI coding agent push back, verify, attack its own code, and finish like a senior engineer. Installable as a Claude Code plugin. MIT.">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🧢</text></svg>'>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bullpen — the senior dev, unbundled">
+<meta property="og:description" content="One lazy senior dev writes less code. A whole bullpen thinks like the room. Ten opinionated skills for AI coding agents.">
+<meta property="og:url" content="https://faizanmohiuddin482.github.io/bullpen/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bullpen — the senior dev, unbundled">
+<meta name="twitter:description" content="Ten opinionated skills that make an AI coding agent think like a senior engineer.">
+<style>
+  :root{
+    --bg:#ECE9E2; --surface:#FBFAF6; --raise:#F2EFE7; --ink:#1B1A17; --muted:#5C574E; --faint:#948C7E;
+    --line:#DAD5C9; --accent:#2E5E8C; --accent-bright:#376FA5; --accent-soft:#DCE6F0;
+    --shadow:0 1px 2px rgba(27,26,23,.05),0 12px 30px rgba(27,26,23,.07);
+    --display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#131310; --surface:#1B1A16; --raise:#22201A; --ink:#EDE9E0; --muted:#9A948A; --faint:#6B655C;
+      --line:#2A2820; --accent:#74A9DD; --accent-bright:#8CBBE8; --accent-soft:#172230;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 34px rgba(0,0,0,.4);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  img{max-width:100%}
+  a{color:var(--accent)}
+  .page{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;padding:clamp(24px,5vw,64px) 20px 88px;min-height:100vh}
+  .wrap{max-width:920px;margin:0 auto}
+
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--accent)}
+  h1{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:.96;font-size:clamp(48px,11vw,104px);margin:0 0 8px;text-wrap:balance}
+  .tagline{font-style:italic;font-size:clamp(19px,2.6vw,24px);color:var(--muted);margin:0 0 22px}
+  .pitch{font-size:clamp(17px,2.3vw,20px);color:var(--ink);max-width:56ch;margin:0 0 26px}
+  .pitch strong{font-weight:600}
+  .pitch .q{color:var(--muted)}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .code{font-family:var(--mono);font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:11px 14px;color:var(--ink);box-shadow:var(--shadow)}
+  .code .p{color:var(--accent)}
+  .ghlink{font-family:var(--mono);font-size:13px;color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent);padding-bottom:1px}
+
+  .rule{height:1px;background:var(--line);border:0;margin:48px 0 34px}
+  .sec-lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 20px;display:flex;align-items:center;gap:12px}
+  .sec-lab::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .roster{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media (max-width:680px){.roster{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 20px 18px;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;transition:transform .16s ease,border-color .16s ease}
+  .card:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 38%,var(--line))}
+  .card-top{display:flex;align-items:baseline;gap:10px;margin-bottom:9px}
+  .no{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--faint);font-variant-numeric:tabular-nums}
+  .slug{font-family:var(--display);font-weight:800;letter-spacing:-.01em;font-size:20px}
+  .slug .cmd{color:var(--accent);font-family:var(--mono);font-size:14px;font-weight:600}
+  .instinct{font-size:15px;color:var(--ink);margin:0 0 12px;line-height:1.5}
+  .thesis{font-style:italic;font-size:14px;color:var(--muted);margin:0 0 12px}
+  .fixes{margin-top:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+  .fixes b{color:var(--accent);font-weight:600}
+
+  .how{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+  @media (max-width:680px){.how{grid-template-columns:1fr}}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
+  .panel h3{font-family:var(--display);font-weight:800;font-size:18px;margin:0 0 12px;letter-spacing:-.01em}
+  .panel pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--ink);white-space:pre-wrap;overflow-x:auto}
+  .panel pre .p{color:var(--accent)} .panel pre .c{color:var(--faint)}
+  .panel p{margin:0;color:var(--muted);font-size:14.5px}
+  .panel p b{color:var(--ink);font-weight:600}
+  .lvl{font-family:var(--mono);color:var(--accent);font-weight:600}
+
+  .foot{margin-top:46px;font-family:var(--mono);font-size:12px;color:var(--faint);line-height:1.7;letter-spacing:.02em}
+  @media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="wrap">
+
+  <p class="eyebrow">the senior dev, unbundled</p>
+  <h1>Bullpen</h1>
+  <p class="tagline">One lazy senior dev writes less code. A whole bullpen thinks like the room.</p>
+  <p class="pitch">A senior engineer doesn't just write clean code. They <strong>push back on the bad idea, refuse to fake &ldquo;done,&rdquo; attack their own work, ask before guessing, and stop digging when the hole gets deep.</strong> <span class="q">Bullpen is that room — ten small, opinionated skills you call in by name, at the intensity you want.</span></p>
+  <div class="cta">
+    <span class="code"><span class="p">/plugin</span> marketplace add faizanmohiuddin482/bullpen</span>
+    <a class="ghlink" href="https://github.com/faizanmohiuddin482/bullpen">github.com/faizanmohiuddin482/bullpen &#8599;</a>
+  </div>
+
+  <hr class="rule">
+  <p class="sec-lab">The roster</p>
+
+  <div class="roster">
+
+    <article class="card">
+      <div class="card-top"><span class="no">01</span><span class="slug">The Skeptic <span class="cmd">/skeptic</span></span></div>
+      <p class="instinct">Pushes back when the request encodes a wrong assumption — before a line is written.</p>
+      <p class="thesis">&ldquo;Your AI shouldn't be a yes-man.&rdquo;</p>
+      <p class="fixes">fixes <b>sycophancy</b></p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="no">02</span><span class="slug">The Closer <span class="cmd">/closer</span></span></div>
+      <p class="instinct">Won't say &ldquo;done&rdquo; until it ran the code and showed you the real output.</p>
+      <p class="thesis">&ldquo;&lsquo;It works&rsquo; is not a claim. It's a screenshot.&rdquo;</p>
+      <p class="fixes">fixes <b>premature &ldquo;done&rdquo;</b></p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="no">03</span><span class="slug">The Attacker <span class="cmd">/attacker</span></span></div>
+      <p class="instinct">Breaks into its own code before shipping, then fixes whatever lands.</p>
+      <p class="thesis">&ldquo;Ship code that already survived an attack.&rdquo;</p>
+      <p class="fixes">fixes <b>confident insecurity</b></p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="no">04</span><span class="slug">The Fact-Checker <span class="cmd">/fact-checker</span></span></div>
+      <p class="instinct">Verifies an API exists before it calls it. Has never invented one.</p>
+      <p class="thesis">&ldquo;It reads the docs so you don't debug the fiction.&rdquo;</p>
+      <p class="fixes">fixes <b>hallucinated APIs</b></p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="no">05</span><span class="slug">The Interrogator <span class="cmd">/interrogator</span></span></div>
+      <p class="instinct">Asks the few decisive questions, then builds the right thing once.</p>
+      <p class="thesis">&ldquo;The most expensive code solved the wrong problem.&rdquo;</p>
+      <p class="fixes">fixes <b>guessing</b></p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="no">06</span><span class="slug">Stop Digging <span class="cmd">/stop-digging</span></span></div>
+      <p class="instinct">Puts the shovel down after two failed fixes and re-diagnoses.</p>
+      <p class="thesis">&ldquo;When you're in a hole, stop digging.&rdquo;</p>
+      <p class="fixes">fixes <b>thrashing</b></p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="no">07</span><span class="slug">The Doorman <span class="cmd">/doorman</span></span></div>
+      <p class="instinct">Justifies every new dependency against what's already in the runtime.</p>
+      <p class="thesis">&ldquo;Every dependency is a liability you'll maintain forever.&rdquo;</p>
+      <p class="fixes">fixes <b>dependency bloat</b></p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="no">08</span><span class="slug">The Historian <span class="cmd">/historian</span></span></div>
+      <p class="instinct">Learns why odd code exists before deleting it. Blames the line first.</p>
+      <p class="thesis">&ldquo;Don't remove the fence until you know why it's there.&rdquo;</p>
+      <p class="fixes">fixes <b>reckless deletion</b></p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="no">09</span><span class="slug">The Chameleon <span class="cmd">/chameleon</span></span></div>
+      <p class="instinct">Writes code indistinguishable from the codebase around it.</p>
+      <p class="thesis">&ldquo;The best contribution is invisible.&rdquo;</p>
+      <p class="fixes">fixes <b>style drift</b></p>
+    </article>
+
+    <article class="card">
+      <div class="card-top"><span class="no">10</span><span class="slug">The Explainer <span class="cmd">/explainer</span></span></div>
+      <p class="instinct">Splits work into reviewable commits a human can actually follow.</p>
+      <p class="thesis">&ldquo;Write for the reviewer, not the compiler.&rdquo;</p>
+      <p class="fixes">fixes <b>unreviewable diffs</b></p>
+    </article>
+
+  </div>
+
+  <hr class="rule">
+  <p class="sec-lab">How to use it</p>
+
+  <div class="how">
+    <div class="panel">
+      <h3>Install &amp; call by name</h3>
+<pre><span class="p">/plugin</span> marketplace add faizanmohiuddin482/bullpen
+<span class="p">/plugin</span> install bullpen@bullpen
+
+<span class="c"># then, any time:</span>
+<span class="p">/attacker</span>            <span class="c"># harden this</span>
+<span class="p">/skeptic</span> ultra      <span class="c"># make it defend the premise</span>
+<span class="p">/closer</span> lite        <span class="c"># verified vs assumed</span>
+stop attacker       <span class="c"># back to normal</span></pre>
+    </div>
+    <div class="panel">
+      <h3>Three intensities &middot; built to pair</h3>
+      <p><span class="lvl">lite</span> — do it the normal way, name the better move. <span class="lvl">full</span> — the discipline enforced (default). <span class="lvl">ultra</span> — the extremist version, with the proof.</p>
+      <p style="margin-top:14px">They <b>compose</b>: the Interrogator clarifies <b>what</b>, the Skeptic decides <b>whether</b>, the Attacker hardens it, the Closer proves it's <b>done</b>. And they pair with <b>ponytail</b> — which keeps the code lazy while the bullpen keeps lazy from meaning soft.</p>
+    </div>
+  </div>
+
+  <p class="foot">
+    MIT &middot; one canonical <b>SKILL.md</b> per skill — nothing duplicated, nothing to drift &middot;
+    <a href="https://github.com/faizanmohiuddin482/bullpen">github.com/faizanmohiuddin482/bullpen</a><br>
+    The only code you trust is the code you already tried to break.
+  </p>
+
+</div>
+</div>
+</body>
+</html>
