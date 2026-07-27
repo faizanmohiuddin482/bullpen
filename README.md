@@ -38,6 +38,14 @@ extremist version, with the proof). Pair them freely: `/attacker` hardens what
 `/ponytail` keeps lazy; `/skeptic` decides *whether* to build, `/interrogator`
 clarifies *what*, `/closer` proves it's *done*.
 
+## See it
+
+One before/after per skill in [`examples/`](examples/) — the naive output, then
+the same task with the skill on. Start with
+[the Attacker](examples/attacker.md) (an IDOR + an injection, fixed at the
+boundary) or [the Skeptic](examples/skeptic.md) (a cache request answered with
+the index that was the real fix).
+
 ## Install
 
 **As a Claude Code plugin:**
