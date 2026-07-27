@@ -64,16 +64,14 @@ Then the skills are available. They fire automatically when a task matches (the
 stop attacker          # revert to normal mode
 ```
 
-## How it's built (and why it's not ponytail's mess)
+## How it's built
 
 Bullpen ships **one canonical `SKILL.md` per skill** — nothing else. No hooks, no
-MCP server, no per-platform rule copies, no version files to hand-sync. Our audit
-of ponytail found ~13 hand-maintained copies of a single prompt policed by a
-drift-checker; that's the maintenance tax we refuse to pay.
+MCP server, no per-platform copies, no version files to hand-sync. The design rule
+is simple: never duplicate a skill's text, so it can never drift.
 
 The only build check is [`scripts/check-skills.js`](scripts/check-skills.js): it
-confirms each skill has the required frontmatter and house sections. Because
-nothing is duplicated, nothing can drift.
+confirms each skill has the required frontmatter and house sections.
 
 - Add a skill → one folder, one `SKILL.md`, following [`AUTHORING.md`](AUTHORING.md).
 - Change a skill → edit one file.

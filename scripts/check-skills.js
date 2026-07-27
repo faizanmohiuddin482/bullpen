@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 // The only build-time check bullpen needs: every skill is one canonical
 // SKILL.md with the required frontmatter and the house sections. No copy-sync,
-// no drift — because nothing is duplicated. (Contrast: ponytail policed ~13
-// hand-maintained copies of one prompt. We keep one source per skill.)
+// no drift — because nothing is duplicated. One source per skill, full stop.
 const fs = require("fs");
 const path = require("path");
 
