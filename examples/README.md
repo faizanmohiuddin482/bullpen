@@ -16,3 +16,4 @@ Short by design — every file fits on a screen.
 | Historian | [historian.md](historian.md) | "Redundant" retry → git blame reveals it guards a flaky upstream; keep it |
 | Chameleon | [chameleon.md](chameleon.md) | New fetch fn → match the house `api()` wrapper + `Result<T>`, not raw axios |
 | Explainer | [explainer.md](explainer.md) | One 41-file `fix stuff` commit → four reviewable commits that say why |
+| Scorekeeper | [scorekeeper.md](scorekeeper.md) | "Is skeptic helping?" → 6 logged fires, 50% overruled → drop it to lite |
