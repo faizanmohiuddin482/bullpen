@@ -34,14 +34,17 @@ closes with a one-line aphorism.
 6. **Rules** — 4–6 sharp bullets. Include the failure mode to avoid.
 7. **Output** — what the response looks like: the work first, then a short
    structured report. Give a `Pattern:` line.
-8. **Intensity** — a markdown table `lite | full | ultra`, then ONE worked
+8. **Record** — copy `## Record` from `skills/attacker/SKILL.md` verbatim. It is
+   the opt-in log contract the Scorekeeper reads; the check fails on any
+   difference. (The Scorekeeper itself has no Record section — it reads the log.)
+9. **Intensity** — a markdown table `lite | full | ultra`, then ONE worked
    example showing all three levels on the same task.
-9. **When NOT to** — carve-outs + the safety line (never weaken what the user
+10. **When NOT to** — carve-outs + the safety line (never weaken what the user
    asked to be strict; defer to the human's explicit call).
-10. **Boundaries** — what it governs, that it pairs with other bullpen skills,
+11. **Boundaries** — what it governs, that it pairs with other bullpen skills,
     the `stop <slug>` / `normal mode` revert, level persists until changed/session
     end.
-11. **Closing aphorism** — one line.
+12. **Closing aphorism** — one line.
 
 ## The intensity contract (consistent across all skills)
 

@@ -1,6 +1,6 @@
 {
   "name": "bullpen-skills",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The senior dev, unbundled. Ten opinionated skills that make an AI coding agent push back, verify, and finish like a senior engineer.",
   "license": "MIT",
   "keywords": [
