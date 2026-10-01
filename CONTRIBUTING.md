@@ -12,7 +12,8 @@ voice. The bar for a new skill is that it reads like it was always in the roster
    can drift.
 3. Follow the required structure exactly: frontmatter (`name` = folder slug,
    `description`, `argument-hint`, `license`), persona, When it fires (with YAGNI
-   scoping), the mechanism, Rules, Output + a `Pattern:` line, an Intensity table
+   scoping), the mechanism, Rules, Output + a `Pattern:` line, the `## Record`
+   section copied verbatim from the Attacker, an Intensity table
    with a worked `lite`/`full`/`ultra` example, When NOT to, Boundaries, and a
    closing aphorism.
 4. Run the check:
@@ -21,7 +22,8 @@ voice. The bar for a new skill is that it reads like it was always in the roster
    node scripts/check-skills.js
    ```
 
-   It confirms the frontmatter and house sections are present. CI runs the same
+   It confirms the frontmatter and house sections are present and that your
+   `## Record` section matches the Attacker's exactly. CI runs the same
    check on every PR.
 
 ## What makes a good bullpen skill

@@ -32,6 +32,11 @@ senior engineer — that you call in by name, at the intensity you want.
 | **`/chameleon`** | Writes code indistinguishable from the codebase around it | The best contribution is invisible. |
 | **`/explainer`** | Splits work into reviewable commits a human can follow | Write for the reviewer, not the compiler. |
 
+Plus one who keeps the book: **`/scorekeeper`** — reads the bullpen's opt-in log
+and tells you how often each skill fired, what it caught, how often you overruled
+it, and whether its intensity fits your codebase. *Trust is a tally, not a
+feeling.*
+
 Each skill takes an intensity argument — **lite** (name the better move, you
 decide), **full** (the discipline enforced; the default), **ultra** (the
 extremist version, with the proof). Pair them freely: `/attacker` hardens what
@@ -72,14 +77,42 @@ Then the skills are available. They fire automatically when a task matches (the
 stop attacker          # revert to normal mode
 ```
 
+## Keep the book
+
+Want to know whether `ultra` is earning its keep, or whether the Skeptic is just
+getting overruled? Turn on the log:
+
+```
+bullpen log on         # creates ~/.bullpen/log.md
+/scorekeeper           # this project: fires, catches, overrules, tuning calls
+/scorekeeper all       # every project in the log
+bullpen log off        # pause for this session (delete the file to stop for good)
+```
+
+Logging is **off until you turn it on**. While it's on, each skill appends one
+line to `~/.bullpen/log.md` — on your machine, outside every repo, so nothing
+lands in a commit — and ends its report with that same line, so you see exactly
+what was kept:
+
+```
+- 2026-10-02 · payments-api · attacker · full · fixed · IDOR on /refund/:id, added owner check
+```
+
+Lines hold the catch in plain words — never code, secrets, or repo data. The
+Scorekeeper makes a tuning call only after a skill has fired five times.
+
 ## How it's built
 
 Bullpen ships **one canonical `SKILL.md` per skill** — nothing else. No hooks, no
 MCP server, no per-platform copies, no version files to hand-sync. The design rule
-is simple: never duplicate a skill's text, so it can never drift.
+is simple: never duplicate a skill's text, so it can never drift. The one shared
+paragraph — each skill's `## Record` section, so a skill installed alone still
+knows how to log — is checked byte-for-byte instead.
 
 The only build check is [`scripts/check-skills.js`](scripts/check-skills.js): it
-confirms each skill has the required frontmatter and house sections.
+confirms each skill has the required frontmatter and house sections, and that
+every skill's `## Record` section matches the Attacker's word for word, so the
+log format can't drift.
 
 - Add a skill → one folder, one `SKILL.md`, following [`AUTHORING.md`](AUTHORING.md).
 - Change a skill → edit one file.
