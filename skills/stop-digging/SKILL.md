@@ -81,6 +81,23 @@ evidence showed, the actual cause.
 
 Pattern: `[evidence] → [root fix] → Dug: [assumed X] · [trace showed Y] · [real cause Z]`
 
+## Record
+
+Opt-in. Logging is on while `~/.bullpen/log.md` exists — "bullpen log on"
+creates it, "bullpen log off" pauses it for the session, deleting the file stops
+it for good. While on, every time this skill runs to its report, append one line
+to that file and end your report with the same line, so the user sees exactly
+what was kept:
+
+`- YYYY-MM-DD · <project> · <skill> · <lite|full|ultra> · <outcome> · <what it caught, ≤12 words>`
+
+`<project>` is the repo's folder name. Outcome is one of: `fixed` (caught it,
+fixed it) · `flagged` (caught it, left it to the user) · `overruled` (the user
+rejected the call — log it when they do) · `clean` (ran, found nothing) ·
+`skipped` (fired, judged it out of scope). Plain words only — never code,
+secrets, or data from the repo. Can't write the file → say "bullpen log: can't
+write ~/.bullpen/log.md" once and carry on. The Scorekeeper reads this log.
+
 ## Intensity
 
 | Level | What change |
